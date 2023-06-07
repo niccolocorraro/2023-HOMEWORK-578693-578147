@@ -23,7 +23,7 @@ public class StanzaProtected {
 	
 	protected String nome;
 	protected HashSet<Attrezzo> attrezzi; 
-	protected HashMap<String,StanzaProtected> stanzeAdiacenti;
+	protected HashMap<Direzione,StanzaProtected> stanzeAdiacenti;
 	
     
     /**
@@ -43,7 +43,7 @@ public class StanzaProtected {
      * @param stanza stanza adiacente nella direzione indicata dal primo parametro.
      */
     public void impostaStanzaProtectedAdiacente(String direzione, StanzaProtected stanza) {
-    	this.stanzeAdiacenti.put(direzione,stanza);
+    	this.stanzeAdiacenti.put(Direzione.valueOf(direzione),stanza);
     }
  
     /**
@@ -51,7 +51,7 @@ public class StanzaProtected {
      * @param direzione
      */
 	public StanzaProtected getStanzaAdiacente(String direzione) {
-		return this.stanzeAdiacenti.get(direzione);
+		return this.stanzeAdiacenti.get(Direzione.valueOf(direzione));
 	}
  
     /**
@@ -154,7 +154,7 @@ public class StanzaProtected {
 	} 
 
   
-	public HashMap<String,StanzaProtected> getDirezioni() { 
+	public HashMap<Direzione,StanzaProtected> getDirezioni() { 
 		return this.stanzeAdiacenti;
     } 
 

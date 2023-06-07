@@ -1,9 +1,11 @@
 package it.uniroma3.diadia;
 
-import it.uniroma3.diadia.ambienti.LabirintoBuilder;
+import java.io.IOException;
+import java.util.Scanner;
+
 import it.uniroma3.diadia.ambienti.Labirinto;
-import it.uniroma3.diadia.comandi.Comando;
-import it.uniroma3.diadia.comandi.FabbricaDiComandiFisarmonica;
+import it.uniroma3.diadia.comandi.AbstractComando;
+import it.uniroma3.diadia.comandi.FabbricaDiComandiRiflessiva;
 
 
 /**
@@ -20,10 +22,9 @@ import it.uniroma3.diadia.comandi.FabbricaDiComandiFisarmonica;
 
 public class DiaDia  {
 
-	private IO io;
-	private Partita partita;
+	private IO io ; 
+	private Partita partita; 
 
-	
 	static final private String MESSAGGIO_BENVENUTO = ""+
 			"Ti trovi nell'Universita', ma oggi e' diversa dal solito...\n" +
 			"Meglio andare al piu' presto in biblioteca a studiare. Ma dov'e'?\n"+
@@ -33,25 +34,26 @@ public class DiaDia  {
 			"puoi raccoglierli, usarli, posarli quando ti sembrano inutili\n" +
 			"o regalarli se pensi che possano ingraziarti qualcuno.\n\n"+
 			"Per conoscere le istruzioni usa il comando 'aiuto'.";
-	
-	
 
-	public DiaDia(Labirinto labirinto ,IO io) { 
+	public DiaDia(Labirinto labirinto ,IO io) throws IOException { 
 		this.partita = new Partita(labirinto);
 		this.io= io;
 	}
-  
+   
 	public void gioca() {
 		String istruzione; 
-		
+		Scanner s = new Scanner(System.in);
+
 		 io.mostraMessaggio(MESSAGGIO_BENVENUTO); 
-		do		
-			istruzione = io.leggiRiga();
+		do	{
+			io.mostraMessaggio("-------------------------------------------------------------------");
+			istruzione = io.leggiRiga(s);
+			io.mostraMessaggio("---------------------------------------------------------------------------------");
+		}
 		while (!processaIstruzione(istruzione));
-		
+		 
 	}     
 
- 
 	/**
 	 * Processa una istruzione 
 	 *
@@ -59,9 +61,9 @@ public class DiaDia  {
 	 */
 	private boolean processaIstruzione(String istruzione) {
 		
-		Comando comandoDaEseguire;
-		FabbricaDiComandiFisarmonica factory = new FabbricaDiComandiFisarmonica();
-				
+		AbstractComando comandoDaEseguire;
+		FabbricaDiComandiRiflessiva factory = new FabbricaDiComandiRiflessiva();
+
 		comandoDaEseguire = factory.costruisciComando(istruzione, this.io);
 		comandoDaEseguire.esegui(this.partita);
 		if (this.partita.vinta()) 
@@ -72,19 +74,12 @@ public class DiaDia  {
 	}
 	
 	
-
-	public static void main(String[] argc) {
-			
+	public static void main(String[] argc) throws FormatoFileNonValidoException, IOException {
+			    
 		IO io = new IOConsole();
-		Labirinto labirinto = new LabirintoBuilder()
-		.addStanzaIniziale("LabCampusOne") 
-		.addStanzaVincente("Biblioteca")
-		.addAttrezzo("attrezzo",1)
-		.addAdiacenza("LabCampusOne","Biblioteca","ovest")
-		.getLabirinto();
-		 
+		Labirinto labirinto = Labirinto.newBuilder("resources/labirinto.txt");
+		
 		DiaDia gioco = new DiaDia(labirinto, io);
 		gioco.gioca();
-		
 	}
 }

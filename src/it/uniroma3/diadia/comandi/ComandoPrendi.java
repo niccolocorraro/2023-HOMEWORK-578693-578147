@@ -5,7 +5,7 @@ import it.uniroma3.diadia.*;
  * Comando prendi: gli attrezzi presi vengono rimossi dalla stanza e aggiunti alla borsa
  */
 
-public class ComandoPrendi implements Comando{
+public class ComandoPrendi extends AbstractComando{
 
 	private String nomeAttrezzo; 
 	private IO io= new IOConsole();  

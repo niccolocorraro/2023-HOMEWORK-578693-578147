@@ -1,0 +1,9 @@
+Stanze: biblioteca, N10, N11
+Inizio: N10
+Vincente: N11 
+Attrezzi: martello 10 biblioteca, pinza 2 N10
+StanzeBloccate: N9 chiave sud
+StanzeMagiche: CampusOne
+StanzeBuie: Magazzino lampadina
+Uscite: biblioteca nord N10, N10 sud biblioteca, biblioteca sud N11, N10 est N9, N9 ovest N10, N10 nord CampusOne, CampusOne sud N10, N10 ovest Magazzino, Magazzino est N10
+Personaggi: Strega N10

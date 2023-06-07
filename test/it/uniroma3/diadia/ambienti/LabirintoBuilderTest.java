@@ -2,9 +2,14 @@ package it.uniroma3.diadia.ambienti;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.io.FileNotFoundException;
+
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import it.uniroma3.diadia.FormatoFileNonValidoException;
+import it.uniroma3.diadia.ambienti.Labirinto.LabirintoBuilder;
 
 class LabirintoBuilderTest {
 
@@ -12,11 +17,11 @@ class LabirintoBuilderTest {
 	private Labirinto labirinto;
 	
 	@BeforeEach
-	void setUp(){ 
-		this.builder = new LabirintoBuilder();
+	void setUp() throws FileNotFoundException, FormatoFileNonValidoException{ 
+		this.builder = Labirinto.newBuilder();
 		
 	} 
-
+  
 	@AfterEach
 	void tearDown(){ 
 		this.labirinto = null;
@@ -56,7 +61,7 @@ class LabirintoBuilderTest {
 	void testAddStanzaBloccata(){ 
 		labirinto = builder.addStanzaIniziale("iniziale")
 				.addStanzaBloccata("bloccata", "chiave", "nord")
-                .addAttrezzo("chiave", 1)
+                .addAttrezzo("chiave", 1,"bloccata")
                 .addAdiacenza("iniziale", "bloccata", "nord").getLabirinto();
         assertEquals("bloccata", labirinto.getStanzaCorrente().getStanzaAdiacente("nord").getNome());
 	}
@@ -64,7 +69,7 @@ class LabirintoBuilderTest {
 	void testAddStanzaBuia(){ 
 		labirinto = this.builder.addStanzaIniziale("stanza")
 				.addStanzaBuia("buia","attrezzo")
-				.addAttrezzo("attrezzo", 2).getLabirinto();	
+				.addAttrezzo("attrezzo", 2,"buia").getLabirinto();	
 				assertNotEquals("qui c'è buio pesto",this.labirinto.getStanzaCorrente().getDescrizione());
 	}
 	
@@ -73,7 +78,7 @@ class LabirintoBuilderTest {
 		labirinto = this.builder.addStanzaIniziale("stanza")
 		.addStanzaMagica("magica")
 		.addAdiacenza("stanza", "magica", "nord")
-		.addAttrezzo("attrezzo", 1).getLabirinto();		
+		.addAttrezzo("attrezzo", 1,"magica").getLabirinto();		
 		assertTrue(this.labirinto.getStanzaCorrente().getStanzaAdiacente("nord").getAttrezzi().containsKey("attrezzo"));
 	} 
 	 
@@ -82,7 +87,7 @@ class LabirintoBuilderTest {
 		labirinto = this.builder.addStanzaIniziale("stanza")
 		.addStanzaMagica("magica",0)
 		.addAdiacenza("stanza", "magica", "nord")
-		.addAttrezzo("attrezzo", 2).getLabirinto();		
+		.addAttrezzo("attrezzo", 2,"magica").getLabirinto();		
 		assertTrue(this.labirinto.getStanzaCorrente().getStanzaAdiacente("nord").getAttrezzi().containsKey("ozzertta"));
 	} 
 	 

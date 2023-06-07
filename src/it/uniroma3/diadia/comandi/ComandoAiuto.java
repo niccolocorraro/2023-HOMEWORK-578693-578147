@@ -9,12 +9,12 @@ import it.uniroma3.diadia.Partita;
  * Stampa informazioni di aiuto.
  */
 
-public class ComandoAiuto implements Comando {
+public class ComandoAiuto extends AbstractComando {
 
 	private IO io= new IOConsole();  
 
-	static final private String[] elencoComandi = {"vai", "aiuto", "fine", "prendi" , "posa", "guarda"};
-
+	static final private String[] elencoComandi = {"vai", "aiuto", "fine", "prendi" , "posa", "guarda" , "saluta" , "interagisci", "regala"};
+ 
 
 	@Override
 	public void esegui(Partita partita) {
@@ -24,24 +24,11 @@ public class ComandoAiuto implements Comando {
 		}
 		io.mostraMessaggio(s.toString());
 	}
-
-
-	@Override
-	public void setParametro(String parametro) {
-		// TODO Auto-generated method stub
-	}
-
+ 
 
 	@Override
 	public String getNome() {
-		return "aiuto";
-	}
-
-
-	@Override
-	public String getParametro() {
-		// TODO Auto-generated method stub
-		return null;
+		return "aiuto"; 
 	}
 
 

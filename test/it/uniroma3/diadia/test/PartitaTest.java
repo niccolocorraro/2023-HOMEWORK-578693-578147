@@ -1,10 +1,14 @@
 package it.uniroma3.diadia.test;
 
 import static org.junit.jupiter.api.Assertions.*;
+
+import java.io.IOException;
+
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import it.uniroma3.diadia.FormatoFileNonValidoException;
 import it.uniroma3.diadia.Partita;
 import it.uniroma3.diadia.ambienti.Labirinto;
 
@@ -22,9 +26,9 @@ public class PartitaTest {
 	private Labirinto lab2;
 	
 	@BeforeEach  
-	public void setUp() {
-		this.lab2 = new Labirinto();
-		this.lab = new Labirinto();
+	public void setUp() throws IOException, FormatoFileNonValidoException {
+		this.lab2 = Labirinto.newBuilder2();
+		this.lab = Labirinto.newBuilder2();
 		this.partita = new Partita(lab);
 		this.gioco = new Partita(lab2); 
 		this.partita.setFinita();

@@ -9,23 +9,24 @@ import it.uniroma3.diadia.ambienti.*;
 	 * e ne stampa il nome, altrimenti stampa un messaggio di errore
  */
 
-public class ComandoVai implements Comando{
+public class ComandoVai extends AbstractComando{
 
 	private String direzione; 
 	private IO io= new IOConsole();  
-	 
+	 //ho aggiunto il metodo isStringDirezione per provare a risolvere con gli enum
+	
 	@Override
 	public void esegui(Partita partita) {
 		Stanza stanzaCorrente = partita.getLabirinto().getStanzaCorrente();
 		Stanza prossimaStanza = null;
-		if(this.direzione == null) {
-			io.mostraMessaggio("Dove vuoi andare?");
-			return;
+		if((this.direzione == null) || !isStringDirezione(this.direzione) ) {
+			io.mostraMessaggio("Impossibile proseguire");
+			return; 
 		}
 		
 		prossimaStanza = stanzaCorrente.getStanzaAdiacente(this.direzione);
 		if(prossimaStanza==null) {
-			io.mostraMessaggio("Direzione inesstente");
+			io.mostraMessaggio("Direzione inesistente");
 			return;
 		}
 		
@@ -33,7 +34,7 @@ public class ComandoVai implements Comando{
 		io.mostraMessaggio(partita.getLabirinto().getStanzaCorrente().getDescrizione());
 		partita.getGiocatore().setCfu(partita.getGiocatore().getCfu()-1);
 		
-	}
+	} 
 
 	@Override
 	public void setParametro(String parametro) {
@@ -41,7 +42,7 @@ public class ComandoVai implements Comando{
 		
 	}
 
-	@Override
+	@Override 
 	public String getNome() {
 		return "vai";
 	}
@@ -51,8 +52,18 @@ public class ComandoVai implements Comando{
 		return direzione;
 	}
 
-	
-	
-	
+	 
+	public boolean isStringDirezione(String dir ) {
+		try {
+			Direzione.valueOf(dir);
+			return true;
+		} catch(IllegalArgumentException e) {
+			return false;
+		} 
+	}
 
+	
+	 
+	
+	
 }

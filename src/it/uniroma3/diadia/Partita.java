@@ -1,6 +1,8 @@
 package it.uniroma3.diadia;
 
 
+import java.io.IOException;
+
 import it.uniroma3.diadia.ambienti.Labirinto;
 import it.uniroma3.diadia.ambienti.Stanza;
 import it.uniroma3.diadia.giocatore.Giocatore;
@@ -19,7 +21,7 @@ public class Partita {
 	private Labirinto labirinto;
 	private boolean finita; 
 	
-	public Partita(Labirinto lab) {
+	public Partita(Labirinto lab) throws IOException {
 		this.labirinto = lab;
 		this.finita = false;
 		this.giocatore = new Giocatore();

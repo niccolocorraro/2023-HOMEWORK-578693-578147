@@ -3,6 +3,7 @@ package it.uniroma3.diadia;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Scanner;
 
 public class IOSimulator implements IO {
 
@@ -19,11 +20,12 @@ public class IOSimulator implements IO {
 		
 	}
 
+	
+
 	@Override
-	public String leggiRiga() {
-		String mes = io.leggiRiga();
-		this.mappaComandi.put(mes, mes);
-		return mes;
+	public String leggiRiga(Scanner s) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

@@ -1,26 +1,32 @@
 package it.uniroma3.diadia.giocatore;
-import it.uniroma3.diadia.attrezzi.Attrezzo;
-
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 import java.util.Set;
 import java.util.SortedSet;
-import java.util.ArrayList;
 import java.util.TreeSet;
-import java.util.HashSet;
+
+import it.uniroma3.diadia.attrezzi.Attrezzo;
 
 
-public class Borsa  {
+public class Borsa  { 
 	public final static int DEFAULT_PESO_MAX_BORSA = 10; 
 	private HashMap<String,Attrezzo> attrezzi;
 	private int pesoMax; 
+	private Properties properties;
 
-
-	public Borsa() {
-		this(DEFAULT_PESO_MAX_BORSA); 
+ 
+	public Borsa() throws IOException {
+		this.properties = new Properties();
+		this.pesoMax = creaPesoMax();
+		this.attrezzi = new HashMap<>(); 
 	}
 
 	public Borsa(int pesoMax) { 
@@ -63,6 +69,13 @@ public class Borsa  {
 
 		return peso; 
 	}  
+	
+	public int creaPesoMax()throws IOException {
+		FileInputStream file = new FileInputStream("resources/diadia.properties");
+		properties.load(file);
+		int i = Integer.parseInt(properties.getProperty("PESOBORSA"));
+		return i;
+	} 
 
 	/*
 	 * @return true se la borsa è vuota
@@ -125,34 +138,6 @@ public class Borsa  {
 	}
 
 
-
-	//restituisce una mappa che associa un intero (rappresentante un peso) 
-	//con l’insieme (comunque non vuoto) degli attrezzi di tale peso: tutti 
-	//gli attrezzi dell'insieme che figura come valore hanno lo stesso peso 
-	//pari all'intero che figura come chiave
-
-	/*
-	public Map<Integer,Set<Attrezzo>> getContenutoRaggruppatoPerPeso(){
-
-		    Map<Integer, Set<Attrezzo>> attrezziPerPeso = new HashMap<>();
-		    boolean trovato = false;
-		    for (String s : this.attrezzi.keySet()) {
-		    	trovato = false;
-		    	for(Integer i : attrezziPerPeso.keySet()) {
-		    		if(this.attrezzi.get(s).getPeso() == i)
-		    			attrezziPerPeso.get(i).add(this.attrezzi.get(s));
-		    			trovato = true;
-		    	}
-		    	if(!trovato) {
-		    		Set<Attrezzo> l = new HashSet<>();
-		    		l.add(this.attrezzi.get(s));
-		    		attrezziPerPeso.put(this.attrezzi.get(s).getPeso(), l);
-		    	} 
-		    }
-		    return attrezziPerPeso; 
-
-	}
-	*/
 	 
 	public Map<Integer, Set<Attrezzo>> raggruppaAttrezziPerPeso() {
 		//creo mappa

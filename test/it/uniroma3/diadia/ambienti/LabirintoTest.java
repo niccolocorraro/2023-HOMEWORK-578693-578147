@@ -1,9 +1,15 @@
 package it.uniroma3.diadia.ambienti;
 
 import static org.junit.jupiter.api.Assertions.*;
+
+import java.io.FileNotFoundException;
+
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import it.uniroma3.diadia.FormatoFileNonValidoException;
+import it.uniroma3.diadia.ambienti.Labirinto.LabirintoBuilder;
 
 
 /*
@@ -17,10 +23,10 @@ public class LabirintoTest {
 	private LabirintoBuilder builder;
 	
 	@BeforeEach 
-	public void setUp() {
-		this.builder = new LabirintoBuilder();
+	public void setUp() throws FileNotFoundException, FormatoFileNonValidoException {
+		this.builder = Labirinto.newBuilder();
 		
-		
+		 
 	}
 	
 	@AfterEach 

@@ -2,6 +2,7 @@ package it.uniroma3.diadia.giocatore;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.io.IOException;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -29,7 +30,7 @@ public class BorsaTest {
 	
 	
 	@BeforeEach 
-	public void setUp() { 
+	public void setUp() throws IOException { 
 		this.sacca = new Borsa();
 		this.borsa = new Borsa();
 		this.accessorio = new Attrezzo("accessorio", 3);

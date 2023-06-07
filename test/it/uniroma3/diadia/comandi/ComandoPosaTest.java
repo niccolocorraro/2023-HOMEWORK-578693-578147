@@ -4,6 +4,9 @@ import it.uniroma3.diadia.giocatore.*;
 import it.uniroma3.diadia.attrezzi.*;
 
 import static org.junit.jupiter.api.Assertions.*;
+
+import java.io.IOException;
+
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -15,7 +18,7 @@ class ComandoPosaTest {
 	private Attrezzo attrezzo;
 	
 	@BeforeEach
-	void setUp()  {
+	void setUp() throws IOException  {
 		this.stanza = new Stanza("stanza");
 		this.borsa = new Borsa();
 		this.attrezzo = new Attrezzo("attrezzo",1);

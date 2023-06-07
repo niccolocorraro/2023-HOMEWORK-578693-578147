@@ -9,10 +9,11 @@ public class IOConsole implements IO {
 	}
 
 	@Override
-	public String leggiRiga() { 
-		Scanner scannerDiLinee = new Scanner(System.in); 
-		String riga = scannerDiLinee.nextLine(); 
-		//scannerDiLinee(close);
-		return riga;
+	public String leggiRiga(Scanner s) { 
+	Scanner scannerDiLinee = s ;
+	String riga = scannerDiLinee.nextLine(); 
+	//scannerDiLinee(close);
+	return riga; 
+		
 		} 
-	}  
+	}   

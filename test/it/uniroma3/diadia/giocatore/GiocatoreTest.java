@@ -1,12 +1,17 @@
 package it.uniroma3.diadia.giocatore;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+
+import java.io.IOException;
+
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import it.uniroma3.diadia.FormatoFileNonValidoException;
 import it.uniroma3.diadia.Partita;
-import it.uniroma3.diadia.ambienti.LabirintoBuilder;
+import it.uniroma3.diadia.ambienti.Labirinto;
 
 /*
  * classe test che verifica il funzionamento di getCfu e setCfu
@@ -18,14 +23,14 @@ public class GiocatoreTest {
 	private Partita partita; 
 	private Partita gioco;
 	private Partita match;
-	private LabirintoBuilder lab;
+	private Labirinto lab;
 	
 	@BeforeEach
-	public void setUp() {
-		this.lab = new LabirintoBuilder();
+	public void setUp() throws IOException, FormatoFileNonValidoException {
+		this.lab = Labirinto.newBuilder2(); 
 		this.partita= new Partita(lab);
 		this.gioco = new Partita(lab);
-		this.match = new Partita(lab);
+		this.match = new Partita(lab); 
 		this.match.getGiocatore().setCfu(-2);
 		this.partita.getGiocatore().setCfu(15);
 	}

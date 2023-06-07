@@ -9,7 +9,7 @@ import it.uniroma3.diadia.Partita;
  * Comando posa : gli attrezzi posati vengono rimossi dalla borsa e aggiunti alla stanza
  */
 
-public class ComandoPosa implements Comando {
+public class ComandoPosa extends AbstractComando {
 
 	private String nomeAttrezzo;
 	private IO io= new IOConsole();   
